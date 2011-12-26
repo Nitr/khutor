@@ -1,0 +1,2 @@
+module Gps::UserFunctionHelper
+end

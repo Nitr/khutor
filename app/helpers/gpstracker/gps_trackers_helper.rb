@@ -1,0 +1,2 @@
+module Gpstracker::GpsTrackersHelper
+end

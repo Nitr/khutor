@@ -55,4 +55,24 @@ Khutor::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
+
+#######---CORS---#######
+ match ':controller', :controller => 'application', :action => 'options', :constraints => {:method => 'OPTIONS'}
+ match ':controller/:id', :controller => 'application', :action => 'options', :constraints => {:method => 'OPTIONS'}
+
+#######---GPS TRACKER---#######
+	namespace :gps do
+		resources :trackers, :except => [:edit, :new] do
+			member do
+				get '/showtrack'					 => 'user_function#showAll'
+				get '/showtrack/from/:start'		 => 'user_function#showFromDate'
+				get '/showtrack/from/:start/to/:end' => 'user_function#showFromToDate'
+			end
+			collection do
+				get 'withmodel' => 'user_function#ShowAllTrackersWithModel'
+			end
+		end
+		resources :models, :except => [:edit, :new]
+	end
 end
+
