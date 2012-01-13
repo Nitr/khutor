@@ -1,0 +1,109 @@
+   	var trackersView = Backbone.View.extend({
+		el: '#trackers',
+		tmpl: function() {
+				return new EJS({url: '../tmpl/trackers.ejs'});
+		},
+		events: {
+			"click table td a.delete": "del"
+		},
+		initialize: function() {
+				var self = this;
+				this.trackerColl = new trackers();
+				this.trackerColl.fetch().done( function() { self.render(); });
+		},
+		render: function() {
+				$(this.el).html(this.tmpl().render({ data: this.trackerColl.toJSON() }));
+		},
+		del: function(e) {
+			var elem = $(e.target).closest("tr");
+			var id = elem.children('td.id').html();
+			this.collection.remove(id);
+			elem.remove();
+			return false;
+		}
+	});
+
+   	var trackerEditView = Backbone.View.extend({
+		el: '#trackers',
+		tmpl: function() {
+				return new EJS({url: 'tmpl/tracker.ejs'});
+		},
+		events: {
+			"click #saveTracker": "save"
+	  	},
+		initialize: function() {
+				var self = this;
+				this.traker = new traker({id: self.id});
+				this.trackerModels = new trackerModels();
+				this.traker.fetch().done(function() { self.render(); });
+				this.trackerModels.fetch().done(function() { self.render(); });
+		},
+		render: function() {
+				if(this.traker.length == 0 || this.trackerModels.length == 0) {
+						return;
+				}
+				else {
+					$(this.el).html(this.tmpl().render({ tracker: this.traker.toJSON(), models: this.trackerModels.toJSON() }));
+				}
+		},
+		save: function(e) {
+				var tracker_name = $("#edit_tracker_name").val(),
+					 tracker_model = $("#selectModelTracker option:selected").val();
+				this.traker.save({ name: tracker_name, gps_model_id: tracker_model });
+				return false;
+		}
+	});
+
+   	var trackView = Backbone.View.extend({
+		el: '#trackers',
+		tmpl: function() {
+				return new EJS({url: 'tmpl/track.ejs'});
+		},
+		events: {
+			"click #renderTrack":   "reRenderTrack"
+	  	},
+		initialize: function() {
+					var self = this;
+					this.render();
+					this.datas = new trackerDatas();
+					var startDate = new Date();
+					var endDate = new Date(startDate - 864000000);
+					var startDatef = startDate.getFullYear()+'-'+(startDate.getMonth()+1)+'-'+ startDate.getDate()+' 00:00:00';
+					var endDatef = endDate.getFullYear()+'-0'+(endDate.getMonth()+1)+'-'+ endDate.getDate()+' 00:00:00';
+					this.url = this.datas.url;
+					this.datas.url = this.datas.url + '/' + this.id+'?startdate=' + startDatef + '&enddate='+endDatef;
+					this.datas.fetch().done(function(){ self.buildTrack(); });
+		},
+		render: function() {
+				$(this.el).html(this.tmpl().render());
+				$("#startDate").datetime();
+				$("#endDate").datetime();
+		},
+		buildTrack: function() {
+			if(this.datas.length == 0) {
+				return;
+			}
+			var poly = [];
+			var first = this.datas.max(function(data) { return data.get('id'); });
+			var myOptions = {   zoom: 15,
+								center: new google.maps.LatLng(first.get('lat'),first.get('lan')),
+								mapTypeId: google.maps.MapTypeId.ROADMAP
+							};
+			this.datas.each( function(data) {
+					poly.push(new google.maps.LatLng(data.get('lat'), data.get('lan')));
+			});
+			var polyline = new google.maps.Polyline({path: poly ,strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 6 });
+			var gmap =  new google.maps.Map(document.getElementById('map'),	myOptions);
+			polyline.setMap(gmap);
+		},
+		reRenderTrack: function() {
+			var self = this;
+			var endDate = new Date(startDate - 864000000);
+			var startDate = $('#startDate').val();
+			var endDate =   $('#endDate').val();
+			this.datas.url = this.url + '/' + this.id+'?startdate=' + startDate + '&enddate='+endDate;
+			this.datas.fetch().done(function(){ self.buildTrack(); });
+			return false;
+		}
+	});
+
