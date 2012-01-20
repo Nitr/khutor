@@ -2,6 +2,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 	after_filter :set_access_control_headers, :only => [:index, :new, :create, :show, :edit, :update, :destroy, :options]
 	rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+	rescue_from CanCan::AccessDenied do |exception|
+		flash[:error] = exception.message
+	end
 
 	def options
 		head :ok
@@ -12,6 +15,7 @@ class ApplicationController < ActionController::Base
 	def record_not_found
 		render :text => "404 Not Found", :status => 404
 	end
+
 	def set_access_control_headers
 		headers['Access-Control-Allow-Origin'] = "*"
 		headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS, DELETE, PUT'

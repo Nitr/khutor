@@ -1,6 +1,8 @@
 class Gps::TrackersController < ApplicationController
+	before_filter :authenticate_user!, :except => [:index]
   def index
-	render :json =>  GpsTracker.all(:joins => :gps_model, :select => "*")
+	 render :json => current_user
+	#render :json =>  GpsTracker.all(:joins => :gps_model, :select => "*")
   end
   def show
 	render :json => GpsTracker.find(params[:id], :joins => :gps_model, :select => "*")
