@@ -22,7 +22,6 @@ define([
 
 	loadCss('modules/Boilerplate/css/style.css');
 
-	test();
 	var BoilerplateRouter = Backbone.Router.extend({
 		routes: {
 		  'boilerplate': 'show'

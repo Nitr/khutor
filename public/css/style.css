@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+/*  .......................  RESET  .......................  */
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center,dl, dt, dd, ol, ul, li, fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;	padding: 0;	border: 0;	outline: 0;	font-size: 100%; vertical-align: baseline;	background: transparent;}
+body { line-height: 1; background: url('../images/auth-bg.jpg') no-repeat center top; margin: 0;}
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+:focus {outline: 0;}
+ins {text-decoration: none;}
+del {text-decoration: line-through;}
+table {border-collapse: collapse;	border-spacing: 0;}
+a{text-decoration: none;}
+a:hover{text-decoration: underline;}
+img { max-width: 100%; height: auto; width: auto\9; /* ie8 */}
+.clear {clear: both;width: 0px;height: 0px;overflow: hidden;font-size: 0px;line-height: 0px; }
+/*  .......................  Fonts  .......................  */
+@font-face {
+	font-family: 'FreeSetCR';
+	src: url('../fonts/freesetregular/freesetregular.eot') format('embedded-opentype');
+	src: url('../fonts/freesetregular/freesetregular.woff') format('woff'), url('../fonts/freesetregular/freesetregular.ttf') format('truetype'), url('../fonts/freesetregular/freesetregular.svg') format('svg');
+}
+@font-face {
+	font-family: 'FreeSetCB';
+	src: url('../fonts/freesetbold/freesetcbold.eot') format('embedded-opentype');
+	src: url('../fonts/freesetbold/freesetcbold.woff') format('woff'), url('../fonts/freesetbold/freesetcbold.ttf') format('truetype'), url('../fonts/freesetbold/freesetcbold.svg') format('svg');
+}
+/*  .......................  MAIN  .......................  */
+/*Popups*/
+.popup {box-shadow: 0px 0px 10px #8f9692; padding:1px;}
+.popup input[type=text], .popup input[type=password] {border:1px solid #beb779; background: #efebc5; margin: 14px auto 0px auto; display:block; width: 204px; outline: none; color:#535248; height:20px; line-height: 24px; padding-left: 7px;}
+.popup input[type=text].error, .popup input[type=password].error { border:1px solid #ce743c;}
+.popup input[type=text]:focus, .popup input[type=password]:focus {border:1px solid #202e2f;}
+a.button {width:56px; height:24px; text-align: center; text-decoration: none; color:#fff; background:#202e2f; display:block; margin:14px auto 0px auto; font-size:14px; line-height:24px; font-family: 'FreeSetCB';}
+div.error {color:#be2a23;  font-size: 12px; margin-top: 24px; text-align: center; font-size: 12px;}
+

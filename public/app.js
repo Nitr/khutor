@@ -6,7 +6,7 @@ require.config({
     text: 		'lib/vendors/require/text',
   }
 });
-
+/*
 define([
 	'jquery',
 	'underscore',
@@ -15,5 +15,11 @@ define([
 	'lib/pineta/loadCss'
 ], function($, _, Backbone, Router) {
 		Router.initialize();
+});
+*/
+require([
+  'router'
+], function(Router){
+  	Router.initialize();
 });
 

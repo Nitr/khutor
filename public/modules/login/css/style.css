@@ -1,0 +1,12 @@
+/*#loginBG { background: black url('../images/auth-bg.jpg') no-repeat center top; margin: 0; width:100%;}*/
+#login {
+	background: url('../images/logotype-auth.png') no-repeat center 12px, #e8e3b3;
+	width: 238px;
+	margin:  145px auto 0 auto;
+	padding:20px;
+	margin:  145px auto 0 auto;
+	font-family: 'FreeSetCR', sans-serif;
+	opacity: 0
+}
+#login h4 {margin: 73px auto 1px auto; text-align: center; font-family: 'FreeSetCB', sans-serif; color:#191919;}
+
