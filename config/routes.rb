@@ -1,8 +1,8 @@
 Khutor::Application.routes.draw do
 	devise_for :users
-#	devise_scope :user do
-#	  get "/logout" => "devise/sessions#destroy"
-#	end
+	devise_scope :user do
+	  get "/logout" => "devise/sessions#destroy"
+	end
 	root :to => "gps/trackers#index"
 #######---CORS---#######
  match ':controller', :controller => 'application', :action => 'options', :constraints => {:method => 'OPTIONS'}

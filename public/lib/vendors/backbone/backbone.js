@@ -492,13 +492,7 @@
       return this;
     },
 
-    // Pluck an attribute from each model in the collection.
-    pluck : function(attr) {
-      return _.map(this.models, function(model){ return model.get(attr); });
-    },
-
-    // When you have more items than you want to add or remove individually,
-    // you can reset the entire set with a new list of models, without firing
+    // Pluck an attribute from each model in the collection.    // you can reset the entire set with a new list of models, without firing
     // any `added` or `removed` events. Fires `reset` when finished.
     reset : function(models, options) {
       models  || (models = []);
@@ -1139,9 +1133,22 @@
     throw new Error('A "url" property or function must be specified');
   };
 
+/* Обработка ошибок *//*
+function serverErrorHandler(error) {
+	 switch(error) {
+	 	case 401: window.location.hash = 'login'; break;
+
+		default: console.log('ошибка не может быть обработана');
+	 }
+}
+*/
   // Wrap an optional error callback with a fallback error event.
   var wrapError = function(onError, model, options) {
-    return function(resp) {
+    return function(resp, textStatus, errorThrown) {
+      /*console.log(resp);
+      console.log(textStatus);
+      console.log(errorThrown);*/
+	  //serverErrorHandler(resp.status);
       if (onError) {
         onError(model, resp, options);
       } else {
@@ -1149,6 +1156,8 @@
       }
     };
   };
+
+
 
   // Helper function to escape a string for HTML rendering.
   var escapeHTML = function(string) {

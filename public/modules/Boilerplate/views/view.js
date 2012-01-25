@@ -1,21 +1,17 @@
-define([
-  'jquery',
-  'underscore',
-  'backbone',
-/*
-шаблоны указываем через text!
-*/
+define(['text!modules/Boilerplate/tmpl/boilerplate.html', 'modules/Boilerplate/collections/collection'], function(boilerplateTemplate, boilerplateCollection) {
 
-  'text!modules/Boilerplate/tmpl/boilerplate.html'
-], function($, _, Backbone, boilerplateTemplate){
+	var boilerplateView = Backbone.View.extend({
+		el: $("body"),
+		render: function() {
+			var tmpl = _.template( boilerplateTemplate)
+			this.el.html(tmpl);
+		},
+		initialize: function() {
 
-  var boilerplateView = Backbone.View.extend({
-    el: $("#tr"),
-    render: function(){
-	  var tmpl = _.template( boilerplateTemplate)
-      this.el.html(tmpl);
-    }
-  });
-  return new boilerplateView;
+			console.log('boilerplate view init')
+		}
+	});
+
+	return new boilerplateView;
 });
 

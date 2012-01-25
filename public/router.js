@@ -1,26 +1,16 @@
 define([
-	'jquery',
-	'underscore',
-	'backbone',
-	/*Модули*/
-	'modules/login/login',
-
-	/*Функции*/
-	'lib/pineta/loadCss'
-], function($, _, Backbone,  /*Модули*/ login  /*Функции*/) {
+	'modules/login/loginRouter',
+], function(loginRouter) {
 
     var AppRouter = Backbone.Router.extend({
 			routes: {
 			  '': 	'root',
 			},
 			root: function(){
-				//test1View.render();
+				$("body").html('');
 			},
 			initialize: function(options) {
-				/*
-				initialize modules here
-				*/
-				login.initialize();
+				loginRouter.initialize();
 			}
 	});
 
